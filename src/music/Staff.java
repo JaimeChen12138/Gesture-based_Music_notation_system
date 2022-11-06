@@ -72,11 +72,39 @@ public class Staff extends Mass {
                 new Head(Staff.this, gest.vs.xM(), gest.vs.yM());
             }
         });
+        addReaction(new Reaction("W-S") { // this is add a q rest
+
+            public int bid(Gesture gest) {
+                int x = gest.vs.xL(), y = gest.vs.yL();
+                if (x < PAGE.margin.left || x > PAGE.margin.right){
+                    return UC.noBid;
+                }
+                int H = Staff.this.fmt.H, top = Staff.this.yTop(), bot = Staff.this.yBot();
+                if (y < top || y > bot){return UC.noBid;}
+                return 10;
+            }
+
+            public void act(Gesture gest) {
+                Time t = Staff.this.sys.getTime(gest.vs.xL());
+                new Rest(Staff.this, t);
+
+            }
+        });
+
+
     }
 
     public int sysOff(){return sys.fmt.staffOffset.get(iStaff);}
     public int yTop(){return sys.yTop() + sysOff();}
     public int yBot(){return yTop() + fmt.height();}
+
+    public int yLine(int n){return yTop() + n * fmt.H;}
+
+    public int lineOfY(int y){
+        int bias = 100;
+        int top = yTop() - bias * fmt.H;
+        return (y - top + fmt.H/2) / fmt.H - bias;
+    }
 
 
     // ----------------------fat ----------------

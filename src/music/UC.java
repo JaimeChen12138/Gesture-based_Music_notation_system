@@ -23,4 +23,8 @@ public class UC { //UniversalConstants
     public static final int defaultStaffSpace = 8;
 
     public static String FontName = "sinfonia";
+
+    public static final int snapTime = 50;
+
+
 }

@@ -13,11 +13,15 @@ public class Sys extends Mass {
     public int iSys;
     public Sys.Fmt fmt;
 
+    public Time.List times;
+
     public Sys(Page page, int iSys, Sys.Fmt fmt){
         super("BACK");
         this.page = page;
         this.iSys = iSys;
         this.fmt = fmt;
+        times = new Time.List(this);
+
         for (int i = 0; i < fmt.size(); i++){
             addStaff(new Staff(this, i, fmt.get(i)));
         }
@@ -29,6 +33,9 @@ public class Sys extends Mass {
     public int yTop(){
         return page.sysTop(iSys);
     }
+
+    public Time getTime(int x){return times.getTime(x);}
+
 
     public void show(Graphics g){
         int y = yTop(), x = PAGE.margin.left;
