@@ -15,7 +15,7 @@ public abstract class Mass extends Reaction.List implements I.Show{
         }
     }
 
-    public void delete(){
+    public void deleteMass(){
         clearAll();
         layer.remove(this);
     }

@@ -26,5 +26,7 @@ public class UC { //UniversalConstants
 
     public static final int snapTime = 50;
 
+    public static final int augDotOffset = 27;
 
+    public static final int augDotSpace = 9;
 }

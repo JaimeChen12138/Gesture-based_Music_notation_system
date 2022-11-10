@@ -52,13 +52,10 @@ public class Music extends Window {
         g.drawString("music", 100, 30);
         Ink.BUFFER.show(g);
         Layer.ALL.show(g);
-//        if (PAGE != null) {
-//            Glyph.CLEF_G.showAt(g, 8, 100, PAGE.margin.top + 4*8);
-//            Glyph.HEAD_HALF.showAt(g, 8, 200, PAGE.margin.top + 4*8);
-//            Glyph.HEAD_Q.showAt(g, 8, 300, PAGE.margin.top + 4*8);
-//            Glyph.HEAD_W.showAt(g, 8, 400, PAGE.margin.top + 4*8);
-//        };
 
+        int H = 32, y = 100 + 4 * H;
+        Glyph.HEAD_Q.showAt(g, H, 200, y);
+        g.drawRect(200, y - H, 24 * H / 10, 2 * H);
     }
 
     public void mouseDragged(MouseEvent me){Gesture.AREA.drag(me.getX(), me.getY());repaint();}
