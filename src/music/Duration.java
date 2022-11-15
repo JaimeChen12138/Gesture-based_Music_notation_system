@@ -12,7 +12,8 @@ public abstract class Duration extends Mass {
 
     public abstract void show(Graphics g); // children of duration implement it
 
-    public void incFlag() {if (nFlag < 4) {nFlag++;}}
+    public void incFlag() {if (nFlag < 4) {nFlag++;
+    System.out.println(nFlag);}}
     public void decFlag() {if (nFlag > -2) {nFlag--;}}
 
     public void cycleDots(){

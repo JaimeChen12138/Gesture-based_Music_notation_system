@@ -7,7 +7,7 @@ import reaction.Reaction;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Head extends Mass {
+public class Head extends Mass implements Comparable<Head>{
 
     public Staff staff;
     public int line;
@@ -61,6 +61,25 @@ public class Head extends Mass {
             }
         });
 
+        addReaction(new Reaction("DOT") {
+
+            public int bid(Gesture gest) {
+                if (Head.this.stem == null){
+                    return UC.noBid;
+                }
+                int xh = Head.this.x(), yh = Head.this.y(), h = Head.this.staff.fmt.H, w = Head.this.w();
+                int x = gest.vs.xM(), y = gest.vs.yM();
+                if (x < xh || x > xh + 2 * w || y < yh-h || y > yh + h){
+                    return UC.noBid;
+                }
+                return Math.abs(xh + w - x) + Math.abs(yh - y);
+            }
+
+            public void act(Gesture gest) {
+                Head.this.stem.cycleDots();
+            }
+        });
+
 
     }
 
@@ -68,14 +87,24 @@ public class Head extends Mass {
 
     public void show(Graphics g){
         int H = staff.fmt.H;
-        g.setColor(stem == null ? Color.RED : Color.BLACK);
-
+        g.setColor(wrongSide ? Color.RED : Color.BLACK);
         ((forceGlyph != null) ? forceGlyph : normalGlyph()).showAt(g, H, x(), y());
+        if (stem != null){
+            int off = UC.augDotOffset, sp = UC.augDotSpace;
+            for (int i = 0; i < stem.nDot; i++){
+                g.fillOval(time.x + off + i * sp, y() - 3 * H / 2, 2*H / 3,2*H/3);
+            }
+
+        }
     }
 
     public int x(){
         // stub - placeholder
-        return time.x;
+        int res = time.x;
+        if (wrongSide){
+            res += (stem != null && stem.isUp) ? w() : -w();
+        }
+        return res;
     }
 
     public int y(){
@@ -83,6 +112,9 @@ public class Head extends Mass {
     }
 
     public Glyph normalGlyph(){
+        if (stem == null){return Glyph.HEAD_Q;}
+        if (stem.nFlag == - 1){return Glyph.HEAD_HALF;}
+        if (stem.nFlag == -2){return Glyph.HEAD_W;}
         return Glyph.HEAD_Q;
     }
 
@@ -103,6 +135,11 @@ public class Head extends Mass {
         if (stem != null){unStem();}
         s.heads.add(this);
         stem = s;
+    }
+
+    @Override
+    public int compareTo(Head h) {
+        return (staff.iStaff != h.staff.iStaff) ? staff.iStaff - h.staff.iStaff : this.line - h.line;
     }
 
     public static class List extends ArrayList<Head>{}
