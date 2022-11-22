@@ -49,11 +49,12 @@ public class Head extends Mass implements Comparable<Head>{
             @Override
             public void act(Gesture gest) {
                 int x = gest.vs.xL(), y1 = gest.vs.yL(), y2 = gest.vs.yH();
-                Time t = Head.this.time;
+                Time t = time;
                 int w = Head.this.w();
                 boolean up = x > (t.x + w / 2);
                 if (Head.this.stem == null){
-                    t.stemHeads(up,y1,y2);
+//                    t.stemHeads(Head.this.staff.sys, up,y1,y2);
+                    stem.getStem(t, y1, y2, up);
                 }
                 else{
                     t.unStemHeads(y1, y2);

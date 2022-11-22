@@ -17,19 +17,20 @@ public class Time {
             }
         }
     }
-    public void stemHeads(boolean up, int y1, int y2){
-        Stem s = new Stem(up);
-        for (Head h : heads){
-            int y = h.y();
-            if (y > y1 && y < y2){h.joinStem(s);}
-        }
-        if (s.heads.size() == 0){
-            System.out.println("? - empty head list");
-        }
-        else{
-            s.setWrongSides();
-        }
-    }
+//    public void stemHeads(Sys sys, boolean up, int y1, int y2){
+//        Stem s = new Stem(up, sys);
+//        for (Head h : heads){
+//            int y = h.y();
+//            if (y > y1 && y < y2){h.joinStem(s);}
+//        }
+//        if (s.heads.size() == 0){
+//            System.out.println("? - empty head list");
+//        }
+//        else{
+//            s.setWrongSides();
+//            s.heads.get(0).staff.sys.stems.addStems(s);
+//        }
+//    }
 
     // -------------------------list---------------------------
     public static class List extends ArrayList<Time>{

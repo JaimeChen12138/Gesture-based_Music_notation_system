@@ -44,7 +44,7 @@ public class Page extends Mass {
                 if (y < yBot) {
                     return UC.noBid;
                 }
-                return 50;
+                return 500;
             }
 
             public void act(Gesture gest){
