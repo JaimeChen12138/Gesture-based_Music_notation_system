@@ -29,7 +29,7 @@ public class Head extends Mass implements Comparable<Head>{
         //line = (y - top + H / 2) / H - 1;
         this.line = staff.lineOfY(y);
 
-//       System.out.println("line: " + line);
+       System.out.println("line: " + hashCode());
         addReaction(new Reaction("S-S") {
             @Override
             public int bid(Gesture gest) {
@@ -88,7 +88,7 @@ public class Head extends Mass implements Comparable<Head>{
 
     public void show(Graphics g){
         int H = staff.fmt.H;
-        g.setColor(wrongSide ? Color.RED : Color.BLACK);
+        g.setColor(stem == null ? Color.RED : Color.BLACK);
         ((forceGlyph != null) ? forceGlyph : normalGlyph()).showAt(g, H, x(), y());
         if (stem != null){
             int off = UC.augDotOffset, sp = UC.augDotSpace;

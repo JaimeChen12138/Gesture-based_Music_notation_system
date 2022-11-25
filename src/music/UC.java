@@ -29,4 +29,7 @@ public class UC { //UniversalConstants
     public static final int augDotOffset = 27;
 
     public static final int augDotSpace = 9;
+
+    public static final int defaultPageMargin = 50;
+    public static final int initialClefOffset = 50;
 }

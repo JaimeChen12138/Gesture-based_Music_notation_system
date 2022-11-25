@@ -110,6 +110,7 @@ public class Stem extends Duration implements Comparable<Stem>{
     }
 
     public int yFirstHead(){
+        if (heads.size() == 0){return 100;}
         Head h = firstHead();
         return h.staff.yLine(h.line);
     }
@@ -138,14 +139,31 @@ public class Stem extends Duration implements Comparable<Stem>{
     public int yHi(){return isUp ? yFirstHead() : yBeamEnd();}
 
     public int x(){
+        if (heads.size() == 0){return 100;}
         Head h = firstHead();
         return h.time.x + (isUp ? h.w() :0 );
     }
 
     public void deleteStem(){
+        if (heads.size() != 0){
+            System.out.println("Deleting stem that has heads on it");
+        }
+        if (beam != null){beam.removeStem(this);}
         deleteMass();
         sys.stems.remove(this);
     }
+
+    @Override
+    public void decFlag() {
+        if (nFlag > -2) {
+            nFlag--;
+        }
+        if (nFlag <= 0 && beam != null){
+            beam.deleteBeam();
+        }
+    }
+
+
 
     public void setWrongSides(){
         Collections.sort(heads);
